@@ -20,7 +20,7 @@ export class NewspapersRepositoryImpl implements NewspapersRepository {
     id: string,
     newspaper: NewspaperInterface
   ): Promise<NewspaperInterface> {
-    return Newspaper.findByIdAndUpdate(id, newspaper);
+    return Newspaper.findByIdAndUpdate(id, newspaper).setOptions({"returnDocument": "after"});;
   }
 
   async deleteNewspaper(id: string): Promise<NewspaperInterface> {
