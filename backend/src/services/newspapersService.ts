@@ -1,15 +1,13 @@
 import { NewspapersRepository } from "../repositories/NewspapersRepository";
 
 export class NewspapersService {
+  private newsPapersRepository: NewspapersRepository;
 
-	private newsPapersRepository: NewspapersRepository
+  constructor(newspaperRepository: NewspapersRepository) {
+    this.newsPapersRepository = newspaperRepository;
+  }
 
-	constructor(newspaperRepository: NewspapersRepository){
-		this.newsPapersRepository = newspaperRepository;
-	}
-
-	getAllNewspapers() {
-		return this.newsPapersRepository.getAllNewspapers();
-	}
-
+  getAllNewspapers() {
+    return this.newsPapersRepository.getAllNewspapers();
+  }
 }
