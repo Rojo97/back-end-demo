@@ -1,0 +1,13 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - demo-network
+    ports:
+      - 27017:27017
+
+networks:
+  demo-network:
