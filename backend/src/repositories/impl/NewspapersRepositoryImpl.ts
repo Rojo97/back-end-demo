@@ -1,22 +1,29 @@
-import { Newspaper } from "../../models/Newspaper";
+import { Newspaper, NewspaperInterface } from "../../models/Newspaper";
 import { NewspapersRepository } from "../NewspapersRepository";
 
 export class NewspapersRepositoryImpl implements NewspapersRepository {
-  getAllNewspapers(): Array<Newspaper> {
-    const newspaper: Newspaper = {
-      abstract: "AAAA",
-      creation_date: new Date(),
-      id: Math.random(),
-      image: "aaaaa",
-      languages: ["bbbbb", "aaaaa"],
-      link: "asjdalsdk",
-      publisher: {
-        id: 1,
-        joined_date: new Date(),
-        name: "Publisher",
-      },
-      title: "test",
-    };
-    return [newspaper, newspaper];
+  async getAllNewspapers(): Promise<Array<NewspaperInterface>> {
+    return Newspaper.find();
+  }
+
+  async getNewspaperById(id: string): Promise<NewspaperInterface> {
+    return Newspaper.findById(id);
+  }
+
+  async createNewspaper(
+    newspaper: NewspaperInterface
+  ): Promise<NewspaperInterface> {
+    return new Newspaper(newspaper).save();
+  }
+
+  async updateNewspaper(
+    id: string,
+    newspaper: NewspaperInterface
+  ): Promise<NewspaperInterface> {
+    return Newspaper.findByIdAndUpdate(id, newspaper);
+  }
+
+  async deleteNewspaper(id: string): Promise<NewspaperInterface> {
+    return Newspaper.findByIdAndDelete(id);
   }
 }
