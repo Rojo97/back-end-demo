@@ -14,7 +14,7 @@ export class NewspapersController {
       .route("/")
       .get(async (req, res, next) => {
         try {
-          res.send(this.newspapersService.getAllNewspapers());
+          res.send(await this.newspapersService.getAllNewspapers());
         } catch (err) {
           next(err);
         }
@@ -22,7 +22,7 @@ export class NewspapersController {
       .post(async (req, res, next) => {
         try {
           res.status(201);
-          res.send(this.newspapersService.createNewspaper(req.body));
+          res.send(await this.newspapersService.createNewspaper(req.body));
         } catch (err) {
           next(err);
         }
@@ -32,7 +32,7 @@ export class NewspapersController {
       .route("/:newspaperId")
       .get(async (req, res, next) => {
         try {
-          const newspaper = this.newspapersService.getNewspaperById(
+          const newspaper = await this.newspapersService.getNewspaperById(
             req.params.newspaperId
           );
           if (!newspaper) {
@@ -45,7 +45,7 @@ export class NewspapersController {
       })
       .put(async (req, res, next) => {
         try {
-          const newspaper = this.newspapersService.getNewspaperById(
+          const newspaper = await this.newspapersService.getNewspaperById(
             req.params.newspaperId
           );
           if (!newspaper) {
@@ -53,7 +53,7 @@ export class NewspapersController {
           }
           res.status(201);
           res.send(
-            this.newspapersService.updateNewspaper(
+            await this.newspapersService.updateNewspaper(
               req.params.newspaperId,
               req.body
             )
