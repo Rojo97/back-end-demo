@@ -25,6 +25,7 @@ class App {
     this.publishersController = publishersController;
     this.app = express();
     this.port = port;
+    mongoose.set('runValidators', true);
     mongoose.connect(mongoUri);
 
     this.app.use(bodyParser.json());
