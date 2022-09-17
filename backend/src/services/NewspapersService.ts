@@ -1,4 +1,4 @@
-import { PaginateResult } from "mongoose";
+import { FilterQuery, PaginateResult } from "mongoose";
 import { NewspaperInterface } from "../models/Newspaper";
 import { NewspapersRepository } from "../repositories/NewspapersRepository";
 
@@ -9,10 +9,13 @@ export class NewspapersService {
     this.newsPapersRepository = newspaperRepository;
   }
 
-  async getAllNewspapers(limit: number, skip: number): Promise<PaginateResult<NewspaperInterface>> {
-    return this.newsPapersRepository.getAllNewspapers(limit, skip);
+  async getAllNewspapers(
+    limit: number,
+    skip: number,
+    filter: FilterQuery<NewspaperInterface>
+  ): Promise<PaginateResult<NewspaperInterface>> {
+    return this.newsPapersRepository.getAllNewspapers(limit, skip, filter);
   }
-
 
   async getNewspaperById(id: number): Promise<NewspaperInterface> {
     return this.newsPapersRepository.getNewspaperById(id);

@@ -1,8 +1,8 @@
-import { PaginateResult } from "mongoose";
+import { FilterQuery, PaginateResult } from "mongoose";
 import { NewspaperInterface } from "../models/Newspaper";
 
 export interface NewspapersRepository {
-  getAllNewspapers(limit: number, skip: number): Promise<PaginateResult<NewspaperInterface>>;
+  getAllNewspapers(limit: number, skip: number, filter: FilterQuery<NewspaperInterface>): Promise<PaginateResult<NewspaperInterface>>;
   getNewspaperById(id: number): Promise<NewspaperInterface>;
   createNewspaper(newspaper: NewspaperInterface): Promise<NewspaperInterface>;
   updateNewspaper(id: number, newspaper: NewspaperInterface): Promise<NewspaperInterface>;

@@ -1,6 +1,8 @@
 import { NewspapersService } from "../services/NewspapersService";
 import createError from "http-errors";
 import express from "express";
+import { FilterQuery } from "mongoose";
+import { NewspaperInterface } from "../models/Newspaper";
 
 export class NewspapersController {
   private newspapersService: NewspapersService;
@@ -19,8 +21,10 @@ export class NewspapersController {
         const skip = req.query?.skip
           ? parseInt(req.query?.skip.toString())
           : 0;
+        const title = req.query?.title?.toString();
+        const filers = this.buildFilter(title)
         try {
-          res.send(await this.newspapersService.getAllNewspapers(limit, skip));
+          res.send(await this.newspapersService.getAllNewspapers(limit, skip, filers));
         } catch (err) {
           next(err);
         }
@@ -72,5 +76,14 @@ export class NewspapersController {
 
   getRouter(): express.Router {
     return this.router;
+  }
+
+  private buildFilter(title: string) {
+    const filter: FilterQuery<NewspaperInterface> = {
+    }
+    if(title) {
+      filter.title = {'$regex' : title, '$options' : 'i'}
+    }
+    return filter;
   }
 }
