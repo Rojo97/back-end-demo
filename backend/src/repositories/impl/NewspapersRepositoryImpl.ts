@@ -1,4 +1,4 @@
-import { PaginateResult } from "mongoose";
+import { FilterQuery, PaginateResult } from "mongoose";
 import { Newspaper, NewspaperInterface } from "../../models/Newspaper";
 import { NewspapersRepository } from "../NewspapersRepository";
 
@@ -7,12 +7,14 @@ const PUBLISHER = "publisher";
 export class NewspapersRepositoryImpl implements NewspapersRepository {
   async getAllNewspapers(
     limit: number,
-    skip: number
+    skip: number,
+    filter: FilterQuery<NewspaperInterface>
   ): Promise<PaginateResult<NewspaperInterface>> {
-    return Newspaper.paginate(
-      {},
-      { populate: PUBLISHER, limit: limit, offset: skip }
-    );
+    return Newspaper.paginate(filter, {
+      populate: PUBLISHER,
+      limit: limit,
+      offset: skip,
+    });
   }
 
   async getNewspaperById(id: number): Promise<NewspaperInterface> {
