@@ -1,3 +1,4 @@
+import { PaginateResult } from "mongoose";
 import { NewspaperInterface } from "../models/Newspaper";
 import { NewspapersRepository } from "../repositories/NewspapersRepository";
 
@@ -8,11 +9,12 @@ export class NewspapersService {
     this.newsPapersRepository = newspaperRepository;
   }
 
-  async getAllNewspapers(): Promise<Array<NewspaperInterface>> {
-    return this.newsPapersRepository.getAllNewspapers();
+  async getAllNewspapers(limit: number, skip: number): Promise<PaginateResult<NewspaperInterface>> {
+    return this.newsPapersRepository.getAllNewspapers(limit, skip);
   }
 
-  async getNewspaperById(id: string): Promise<NewspaperInterface> {
+
+  async getNewspaperById(id: number): Promise<NewspaperInterface> {
     return this.newsPapersRepository.getNewspaperById(id);
   }
 
@@ -23,13 +25,13 @@ export class NewspapersService {
   }
 
   async updateNewspaper(
-    id: string,
+    id: number,
     newspaper: NewspaperInterface
   ): Promise<NewspaperInterface> {
     return this.newsPapersRepository.updateNewspaper(id, newspaper);
   }
 
-  async deleteNewspaper(id: string): Promise<NewspaperInterface> {
+  async deleteNewspaper(id: number): Promise<NewspaperInterface> {
     return this.newsPapersRepository.deleteNewspaper(id);
   }
 }

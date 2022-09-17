@@ -16,6 +16,7 @@
     "http-errors": "^2.0.0",
     "mongoose": "^6.6.1",
     "mongoose-id-validator": "^0.6.0",
+    "mongoose-paginate-v2": "^1.7.1",
     "mongoose-type-url": "^2.1.0",
     "ts-node": "^10.9.1"
   },

@@ -13,8 +13,14 @@ export class NewspapersController {
     this.router
       .route("/")
       .get(async (req, res, next) => {
+        const limit = req.query?.limit
+          ? parseInt(req.query?.limit.toString())
+          : 10;
+        const skip = req.query?.skip
+          ? parseInt(req.query?.skip.toString())
+          : 0;
         try {
-          res.send(await this.newspapersService.getAllNewspapers());
+          res.send(await this.newspapersService.getAllNewspapers(limit, skip));
         } catch (err) {
           next(err);
         }
@@ -33,7 +39,7 @@ export class NewspapersController {
       .get(async (req, res, next) => {
         try {
           const newspaper = await this.newspapersService.getNewspaperById(
-            req.params.newspaperId
+            parseInt(req.params.newspaperId)
           );
           if (!newspaper) {
             return next(new createError.NotFound());
@@ -46,7 +52,7 @@ export class NewspapersController {
       .put(async (req, res, next) => {
         try {
           const newspaper = await this.newspapersService.getNewspaperById(
-            req.params.newspaperId
+            parseInt(req.params.newspaperId)
           );
           if (!newspaper) {
             return next(new createError.NotFound());
@@ -54,7 +60,7 @@ export class NewspapersController {
           res.status(201);
           res.send(
             await this.newspapersService.updateNewspaper(
-              req.params.newspaperId,
+              parseInt(req.params.newspaperId),
               req.body
             )
           );

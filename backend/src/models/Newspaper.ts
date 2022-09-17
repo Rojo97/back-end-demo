@@ -1,5 +1,6 @@
-import { model, Schema, Types, Document } from "mongoose";
+import { model, Schema, Document, PaginateModel} from "mongoose";
 import idValidator from "mongoose-id-validator";
+import paginate from 'mongoose-paginate-v2';
 
 export interface NewspaperInterface extends Document {
   _id: number;
@@ -55,8 +56,9 @@ NewspaperSchema.set('toJSON', {
 });
 
 NewspaperSchema.plugin(idValidator, {message: "Publisher not found"});
+NewspaperSchema.plugin(paginate);
 
-export const Newspaper = model<NewspaperInterface>(
+export const Newspaper = model<NewspaperInterface, PaginateModel<NewspaperInterface>>(
   "Newspaper",
   NewspaperSchema
 );
