@@ -1,22 +1,23 @@
 import { model, Schema, Types, Document } from "mongoose";
+import idValidator from "mongoose-id-validator";
 
 export interface NewspaperInterface extends Document {
-  id: string;
+  _id: number;
   title: string;
   image: string;
   link: string;
   abstract: string;
-  publisher: Types.ObjectId;
+  publisher: number;
   languages: Array<string>;
   creation_date: Date;
 }
 
 const NewspaperSchema = new Schema<NewspaperInterface>(
   {
-    id: String,
+    _id: { type: Number, alias: "id" },
     title: { type: String, required: true },
     image: { type: String, required: true },
-    link: { type: String, required: true, validate: {
+    link: { type: String, validate: {
       validator: (v:string) => {
         const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
         return urlRegex.test(v);
@@ -25,9 +26,9 @@ const NewspaperSchema = new Schema<NewspaperInterface>(
     }},
     abstract: { type: String, required: true },
     publisher: {
-      type: Schema.Types.ObjectId,
+      type: Number,
       ref: "Publisher",
-      required: true,
+      required: true
     },
     languages: {
       type: [String],
@@ -51,7 +52,9 @@ NewspaperSchema.set('toJSON', {
       delete ret._id;
       delete ret.__v;
   }
-}); 
+});
+
+NewspaperSchema.plugin(idValidator, {message: "Publisher not found"});
 
 export const Newspaper = model<NewspaperInterface>(
   "Newspaper",
