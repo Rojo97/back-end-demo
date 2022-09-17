@@ -17,7 +17,7 @@ const NewspaperSchema = new Schema<NewspaperInterface>(
     _id: { type: Number, alias: "id" },
     title: { type: String, required: true },
     image: { type: String, required: true },
-    link: { type: String, validate: {
+    link: { type: String, required: true, validate: {
       validator: (v:string) => {
         const urlRegex = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
         return urlRegex.test(v);
