@@ -4,6 +4,8 @@ services:
   mongo:
     image: mongo
     restart: always
+    volumes:
+      - ./mongo:/docker-entrypoint-initdb.d
     networks:
       - demo-network
     ports:
