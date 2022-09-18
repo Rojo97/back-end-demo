@@ -1,6 +1,6 @@
 import { model, Schema, Document, Types } from "mongoose";
 
-export interface PublisherInterface extends Document {
+export interface PublisherInterface {
   _id: number;
   name: string;
 }
