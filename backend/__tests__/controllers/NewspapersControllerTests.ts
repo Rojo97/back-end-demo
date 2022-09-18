@@ -168,4 +168,30 @@ describe("Test NewspapersController.ts", () => {
         expect(spyUpdate).toBeCalledTimes(0);
       });
   });
+
+  test("DELETE /newspapers/:id", async () => {
+    const spy = jest
+      .spyOn(NewspapersService.prototype, "deleteNewspaper")
+      .mockReturnValueOnce(Promise.resolve(newspaper));
+    
+    await supertest(server)
+      .delete("/newspapers/1")
+      .expect(204)
+      .then(() => {
+        expect(spy).toBeCalledWith(1);
+      });
+  });
+
+  test("DELETE /newspapers/:id with not found newspaper", async () => {
+    const spy = jest
+      .spyOn(NewspapersService.prototype, "deleteNewspaper")
+      .mockReturnValueOnce(Promise.resolve(undefined as unknown as NewspaperInterface));
+    
+    await supertest(server)
+      .delete("/newspapers/1")
+      .expect(204)
+      .then(() => {
+        expect(spy).toBeCalledWith(1);
+      });
+  });
 });

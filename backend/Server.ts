@@ -51,7 +51,7 @@ export class Server {
 
   private errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.log(err.message);
-    res.status(err.status || 500);
+    res.status(err.statusCode || 400);
     res.send(err.message);
   };
 }

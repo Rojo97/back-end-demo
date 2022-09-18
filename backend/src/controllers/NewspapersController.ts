@@ -71,6 +71,17 @@ export class NewspapersController {
         } catch (err) {
           next(err);
         }
+      })
+      .delete(async (req, res, next) => {
+        try {
+          await this.newspapersService.deleteNewspaper(
+            parseInt(req.params.newspaperId)
+          )
+        } catch (err) {
+          // Ignore error
+        }
+        res.status(204);
+        res.send();
       });
   }
 
