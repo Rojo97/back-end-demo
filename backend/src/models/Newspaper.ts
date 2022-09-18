@@ -1,4 +1,4 @@
-import { model, Schema, Document, PaginateModel} from "mongoose";
+import { model, Schema, PaginateModel} from "mongoose";
 import idValidator from "mongoose-id-validator";
 import paginate from 'mongoose-paginate-v2';
 
