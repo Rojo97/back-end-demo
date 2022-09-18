@@ -25,7 +25,14 @@ To deploy the server with a mongo instance, docker and docker-compose are requir
 docker-compose up --build -d
 ```
 The server is listening on port 3000 by default, to change it edit backend/config/default.js
-The mongo server is listening on port 27017
+The mongo server is listening on port 27017.
+
+You can tests the application using swagger ui on port 8080, just open a navigator and go to:
+http://localhost:8080
+
+Sometimes the requests are rejected by cors. You can install a CORS plugin to ignore it:
+https://addons.mozilla.org/es/firefox/addon/cors-everywhere/
+https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=es
 
 To stop the services use:
 ```bash
