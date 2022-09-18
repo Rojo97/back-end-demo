@@ -31,8 +31,8 @@ You can tests the application using swagger ui on port 8080, just open a navigat
 http://localhost:8080
 
 Sometimes the requests are rejected by cors. You can install a CORS plugin to ignore it:
-https://addons.mozilla.org/es/firefox/addon/cors-everywhere/
-https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=es
+* https://addons.mozilla.org/es/firefox/addon/cors-everywhere/
+* https://chrome.google.com/webstore/detail/allow-cors-access-control/lhobafahddgcelffkeicbaginigeejlf?hl=es
 
 To stop the services use:
 ```bash
