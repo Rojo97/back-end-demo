@@ -2,6 +2,9 @@ import { FilterQuery, PaginateResult } from "mongoose";
 import { NewspaperInterface } from "../models/Newspaper";
 import { NewspapersRepository } from "../repositories/NewspapersRepository";
 
+/**
+ * Newspapers business logic
+ */
 export class NewspapersService {
   private newsPapersRepository: NewspapersRepository;
 
