@@ -22,6 +22,18 @@ services:
       NODE_ENV: docker
     depends_on:
       - mongo
+  
+  swagger:
+    image: swaggerapi/swagger-ui
+    ports:
+      - 8080:8080
+    volumes:
+      - ./swagger:/opt/swagger
+    environment:
+      SWAGGER_JSON: /opt/swagger/openapi.yml
+      SERVER_AJAX_DOMAIN: http://localhost:3000
+    depends_on:
+      - mongo
 
 networks:
   demo-network:

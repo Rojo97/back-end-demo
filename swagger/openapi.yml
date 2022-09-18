@@ -1,0 +1,306 @@
+openapi: 3.0.1
+info:
+  title: Demo newspapers API
+  description: Express.js demo
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+    description: Local server
+paths:
+  '/newspapers':
+    post:
+      tags:  
+        - newspapers
+      summary: Insert newspaper
+      description: Insert a newspaper.
+      operationId: createNewspaper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newspaperRequest'
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newspaperResponse'
+        '400':
+          description: Invalid request.
+    get:
+      tags:  
+        - newspapers
+      summary: Find all newspapers
+      description: Finds all newspapers filter parameters.
+      operationId: findAllNewspapers
+      parameters:
+        - $ref: '#/components/parameters/limit'
+        - $ref: '#/components/parameters/skip'
+        - $ref: '#/components/parameters/title'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newspaperPaginatedResponse'
+  '/newspapers/{entityId}':
+    parameters:
+      - $ref: '#/components/parameters/id'
+    get:
+      tags:  
+        - newspapers
+      summary: Get newspaper
+      description: Get newspaper information for given id.
+      operationId: getNewspaper
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newspaperResponse'
+        '404':
+          description: Not found.
+    put:
+      tags:
+        - newspapers
+      summary: Update newspaper
+      description: Update newspaper data with given id.
+      operationId: updateNewspaper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/newspaperRequest'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/newspaperResponse'
+        '404':
+          description: Not found.
+    delete:
+      tags:  
+        - newspapers
+      summary: Remove newspaper
+      description: Remove newspaper with given id.
+      operationId: removeNewspaper
+      responses:
+        '204':
+          description: Successful response.
+  '/publishers':
+    post:
+      tags:  
+        - publishers
+      summary: Insert publisher
+      description: Insert a publisher.
+      operationId: createPublisher
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/publisher'
+      responses:
+        '201':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/publisher'
+        '400':
+          description: Invalid request.
+  '/publishers/{entityId}':
+    parameters:
+      - $ref: '#/components/parameters/id'
+    get:
+      tags:  
+        - publishers
+      summary: Get publisher
+      description: Get publisher information for given id.
+      operationId: getPublisher
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/publisher'
+        '404':
+          description: Not found.
+    put:
+      tags:
+        - publishers
+      summary: Update publisher
+      description: Update newspaper data with given id.
+      operationId: updateNewspaper
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/publisher'
+      responses:
+        '200':
+          description: Successful response.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/publisher'
+        '404':
+          description: Not found.
+components:
+  parameters:
+    id:
+      name: entityId
+      in: path
+      description: Identity identifier.
+      required: true
+      schema:
+        $ref: '#/components/schemas/id'
+    skip:
+      name: skip
+      in: query
+      description: Skip x first results.
+      schema:
+        type: integer
+    limit:
+      name: limit
+      in: query
+      description: Limit the amount of results. Default value 10.
+      schema:
+        type: integer
+    title:
+      name: title
+      in: query
+      description: Filters results by a given title.
+      schema:
+        type: string
+  schemas:
+    id:
+      title: Unique identifier for entities
+      type: integer
+    createdAt:
+      title: Creation date
+      type: string
+      format: date-time
+    publisher:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - name
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        name:
+          description: Publisher name.
+          type: string
+        joined_date:
+          $ref: '#/components/schemas/createdAt'
+    newspaperBase:
+      type: object
+      additionalProperties: false
+      required:
+        - id
+        - title
+        - image
+        - link
+        - abstract
+        - languages
+      properties:
+        id:
+          $ref: '#/components/schemas/id'
+        title:
+          description: Newspaper title.
+          type: string
+        image:
+          description: Newspaper image.
+          type: string
+        link:
+          description: Newspaper link.
+          type: string
+          format: uri
+        abstract:
+          description: Newspaper abstract.
+          type: string
+        languages:
+          type: array
+          minItems: 1
+          items:
+            type: string
+        creation_date:
+          $ref: '#/components/schemas/createdAt'
+    newspaperRequest:
+      title: Newspaper request info
+      type: object
+      required:
+        - publisher
+      properties:
+        publisher:
+          $ref: '#/components/schemas/id'
+      allOf: 
+        - $ref: '#/components/schemas/newspaperBase'
+    newspaperResponse:
+      title: Newspaper response info
+      type: object
+      required:
+        - publisher
+      properties:
+        publisher:
+          $ref: '#/components/schemas/publisher'
+      allOf: 
+        - $ref: '#/components/schemas/newspaperBase'
+    newspaperPaginatedResponse:
+      title: Newspapers paginated response.
+      type: object
+      required:
+        - docs
+        - totalDocs
+        - offset
+        - limit
+        - totalPages
+        - page
+        - pagingCounter
+        - hasPrevPage
+        - hasNextPage
+        - prevPage
+        - nextPage
+      properties:
+        docs:
+          type: array
+          items: 
+            $ref: '#/components/schemas/newspaperResponse'
+        totalDocs:
+          description: Total of documents found.
+          type: integer
+        offset:
+          description: Skipped of documents.
+          type: integer
+        limit:
+          description: Limit of documents returned.
+          type: integer
+        totalPages: 
+          description: Total pages with limit size.
+          type: integer
+        page:
+          description: Current page Number.
+          type: integer
+        pagingCounter:
+          description: Index number for the first element.
+          type: integer
+        hasPrevPage:
+          description: Availability of prev page.
+          type: boolean
+        hasNextPage:
+          description: Availability of next page.
+          type: boolean
+        prevPage:
+          description: Prev page number.
+          type: integer
+        nextPage:
+          description: Next page number.
+          type: integer
+
