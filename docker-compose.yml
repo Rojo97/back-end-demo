@@ -11,5 +11,17 @@ services:
     ports:
       - 27017:27017
 
+  server:
+    build:
+      context: ./backend
+    networks:
+      - demo-network
+    ports:
+      - 3000:3000
+    environment:
+      NODE_ENV: docker
+    depends_on:
+      - mongo
+
 networks:
   demo-network:

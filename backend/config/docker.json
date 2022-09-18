@@ -1,0 +1,6 @@
+{
+	"server": {
+		"port": 3000,
+		"mongoUri": "mongodb://mongo:27017/demo-db"
+	}
+}
