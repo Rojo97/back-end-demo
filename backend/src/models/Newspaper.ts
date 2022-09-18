@@ -1,8 +1,8 @@
-import { model, Schema, Document, PaginateModel} from "mongoose";
+import { model, Schema, PaginateModel} from "mongoose";
 import idValidator from "mongoose-id-validator";
 import paginate from 'mongoose-paginate-v2';
 
-export interface NewspaperInterface extends Document {
+export interface NewspaperInterface {
   _id: number;
   title: string;
   image: string;
@@ -10,7 +10,7 @@ export interface NewspaperInterface extends Document {
   abstract: string;
   publisher: number;
   languages: Array<string>;
-  creation_date: Date;
+  creation_date?: Date;
 }
 
 const NewspaperSchema = new Schema<NewspaperInterface>(

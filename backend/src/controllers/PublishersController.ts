@@ -10,16 +10,14 @@ export class PublishersController {
     this.PublishersService = PublishersService;
     this.router = express.Router();
 
-    this.router
-      .route("/")
-      .post(async (req, res, next) => {
-        try {
-          res.status(201);
-          res.send(await this.PublishersService.createPublisher(req.body));
-        } catch (err) {
-          next(err);
-        }
-      });
+    this.router.route("/").post(async (req, res, next) => {
+      try {
+        res.status(201);
+        res.send(await this.PublishersService.createPublisher(req.body));
+      } catch (err) {
+        next(err);
+      }
+    });
 
     this.router
       .route("/:PublisherId")
@@ -31,7 +29,6 @@ export class PublishersController {
           if (!publisher) {
             return next(new createError.NotFound());
           }
-          console.log(publisher)
           res.send(publisher);
         } catch (err) {
           next(err);

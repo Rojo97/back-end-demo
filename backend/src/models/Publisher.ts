@@ -1,8 +1,9 @@
-import { model, Schema, Document, Types } from "mongoose";
+import { model, Schema} from "mongoose";
 
-export interface PublisherInterface extends Document {
+export interface PublisherInterface {
   _id: number;
   name: string;
+  joined_date?: Date;
 }
 
 export const PublisherSchema = new Schema<PublisherInterface>(
