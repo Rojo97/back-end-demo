@@ -29,7 +29,6 @@ export class PublishersController {
           if (!publisher) {
             return next(new createError.NotFound());
           }
-          console.log(publisher);
           res.send(publisher);
         } catch (err) {
           next(err);
