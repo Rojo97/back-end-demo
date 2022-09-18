@@ -5,6 +5,7 @@
   "main": "app.ts",
   "scripts": {
     "start": "npx nodemon app.ts",
+    "start-pro": "ts-node app.ts",
     "test": "jest --coverage"
   },
   "author": "",
