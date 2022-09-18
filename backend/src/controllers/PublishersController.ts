@@ -36,6 +36,7 @@ export class PublishersController {
       })
       .put(async (req, res, next) => {
         try {
+          //Try to find publisher to modify
           const Publisher = await this.PublishersService.getPublisherById(
             parseInt(req.params.PublisherId)
           );

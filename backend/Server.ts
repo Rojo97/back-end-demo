@@ -9,6 +9,9 @@ import { PublishersService } from "./src/services/PublishersService";
 import { PublishersRepositoryImpl } from "./src/repositories/impl/PublishersRepositoryImpl";
 import config from "config";
 
+/**
+ * Server builder
+ */
 export class Server {
   private app: express.Application;
   private port: number;
@@ -49,6 +52,9 @@ export class Server {
     mongoose.connect(this.mongoUri);
   }
 
+  /**
+   * Error handler for common errors, such as validation errors.
+   */
   private errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     console.log(err.message);
     res.status(err.statusCode || 400);
@@ -56,6 +62,9 @@ export class Server {
   };
 }
 
+/**
+ * Server builder with initialized instances.
+ */
 export function createServer(): Server {
   return new Server(
     new NewspapersController(

@@ -1,6 +1,9 @@
 import { Publisher, PublisherInterface } from "../../models/Publisher";
 import { PublishersRepository } from "../PublishersRepository";
 
+/**
+ * Publishers persistence logic
+ */
 export class PublishersRepositoryImpl implements PublishersRepository {
   async getPublisherById(id: number): Promise<PublisherInterface> {
     return Publisher.findById(id);

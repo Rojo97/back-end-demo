@@ -4,7 +4,11 @@ import { NewspapersRepository } from "../NewspapersRepository";
 
 const PUBLISHER = "publisher";
 
+/**
+ * Newspapers persistence logic
+ */
 export class NewspapersRepositoryImpl implements NewspapersRepository {
+  //Return all newspapers but paginated
   async getAllNewspapers(
     limit: number,
     skip: number,

@@ -1,6 +1,9 @@
 import { PublisherInterface } from "../models/Publisher";
 import { PublishersRepository } from "../repositories/PublishersRepository";
 
+/**
+ * Publishers business logic
+ */
 export class PublishersService {
   private PublishersRepository: PublishersRepository;
 
